@@ -5,6 +5,11 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(exclude= {"uom","recipe"})
 @Entity
 public class Ingredient extends BaseEntity{
 	private String description;
@@ -16,28 +21,4 @@ public class Ingredient extends BaseEntity{
 	@ManyToOne
 	private Recipe recipe;
 	
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public Integer getAmount() {
-		return amount;
-	}
-	public void setAmount(Integer amount) {
-		this.amount = amount;
-	}
-	public UnitOfMeasure getUom() {
-		return uom;
-	}
-	public void setUom(UnitOfMeasure uom) {
-		this.uom = uom;
-	}
-	public Recipe getRecipe() {
-		return recipe;
-	}
-	public void setRecipe(Recipe recipe) {
-		this.recipe = recipe;
-	}	
 }
