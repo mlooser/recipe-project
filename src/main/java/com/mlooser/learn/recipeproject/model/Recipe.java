@@ -16,9 +16,11 @@ import javax.persistence.OneToOne;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode(exclude= {"notes","ingredients","categories"})
+@EqualsAndHashCode(exclude= {"notes","ingredients","categories"}, callSuper = false)
+@NoArgsConstructor
 @Entity
 public class Recipe extends BaseEntity {
 	
@@ -49,6 +51,9 @@ public class Recipe extends BaseEntity {
 		inverseJoinColumns=@JoinColumn(name = "category_id"))
 	private Set<Category> categories;
 	
+	public Recipe(String name) {
+		this.name = name;
+	}
 	
 	public void addIngredient(Ingredient ingredient) {
 		if(ingredients == null)

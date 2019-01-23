@@ -23,7 +23,7 @@ public class RecipeServiceImpl implements RecipeService{
 
 
 	@Override
-	public Set<Recipe> getAllRecipes() { 
+	public Set<Recipe> getAllRecipes() { 		
 		Set<Recipe> retSet = new HashSet<>();
 		recipeRepository.findAll().iterator().forEachRemaining(retSet::add);
 		return retSet;
