@@ -7,5 +7,15 @@ import lombok.Data;
 @Data
 @Entity
 public class UnitOfMeasure extends BaseEntity{
-	private String name;	
+	private String name;
+
+	public UnitOfMeasure(Long id, String name) {
+		this.name = name;
+		setId(id);
+	}
+
+	public UnitOfMeasure() {
+	}	
+	
+	
 }
