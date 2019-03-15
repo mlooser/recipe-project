@@ -6,4 +6,5 @@ import com.mlooser.learn.recipeproject.model.Recipe;
 
 public interface RecipeService {
 	Set<Recipe> getAllRecipes();
+	Recipe finById(Long id);
 }

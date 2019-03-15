@@ -1,6 +1,7 @@
 package com.mlooser.learn.recipeproject.services;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -27,6 +28,11 @@ public class RecipeServiceImpl implements RecipeService{
 		Set<Recipe> retSet = new HashSet<>();
 		recipeRepository.findAll().iterator().forEachRemaining(retSet::add);
 		return retSet;
+	}
+	
+	public Recipe finById(Long id) {
+		Optional<Recipe> recipe = recipeRepository.findById(id);
+		return recipe.orElseThrow(()->new RuntimeException("Recipe not found!"));
 	}
 
 }
