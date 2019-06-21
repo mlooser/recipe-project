@@ -23,8 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class Recipe extends BaseEntity {
-	
-	private String name;
+		
 	private String description;
 	private Integer prepTime;
 	private Integer cookTime;
@@ -51,11 +50,7 @@ public class Recipe extends BaseEntity {
 	@JoinTable(name="recipe_category", 
 		joinColumns=@JoinColumn(name = "recipe_id"), 
 		inverseJoinColumns=@JoinColumn(name = "category_id"))
-	private Set<Category> categories = new HashSet<>();
-	
-	public Recipe(String name) {
-		this.name = name;
-	}
+	private Set<Category> categories = new HashSet<>();	
 	
 	public void addIngredient(Ingredient ingredient) {
 		if(ingredients == null)

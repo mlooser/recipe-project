@@ -15,35 +15,39 @@ import com.mlooser.learn.recipeproject.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-public class RecipeServiceImpl implements RecipeService{
+public class RecipeServiceImpl implements RecipeService {
 
-	private RecipeRepository recipeRepository;
-	private RecipeCommandToRecipe recipeCommandToRecipe;
-	private RecipeToRecipeCommand recipeToRecipeCommand;
-	
-	public RecipeServiceImpl(RecipeRepository recipeRepository) {
-		super();
-		this.recipeRepository = recipeRepository;
-	}
+  private RecipeRepository recipeRepository;
+  private RecipeCommandToRecipe recipeCommandToRecipe;
+  private RecipeToRecipeCommand recipeToRecipeCommand;
 
+  public RecipeServiceImpl(RecipeRepository recipeRepository,
+      RecipeCommandToRecipe recipeCommandToRecipe, 
+      RecipeToRecipeCommand recipeToRecipeCommand) {
+    super();
+    
+    this.recipeRepository = recipeRepository;
+    this.recipeCommandToRecipe = recipeCommandToRecipe;
+    this.recipeToRecipeCommand = recipeToRecipeCommand;
+  }
 
-	@Override
-	public Set<Recipe> getAllRecipes() { 		
-		Set<Recipe> retSet = new HashSet<>();
-		recipeRepository.findAll().iterator().forEachRemaining(retSet::add);
-		return retSet;
-	}
-	
-	@Override
-	public Recipe finById(Long id) {
-		Optional<Recipe> recipe = recipeRepository.findById(id);
-		return recipe.orElseThrow(()->new RuntimeException("Recipe not found!"));
-	}
+  @Override
+  public Set<Recipe> getAllRecipes() {
+    Set<Recipe> retSet = new HashSet<>();
+    recipeRepository.findAll().iterator().forEachRemaining(retSet::add);
+    return retSet;
+  }
 
-	@Override
-	public RecipeCommand saveRecipe(RecipeCommand recipeCommand) {
-	  Recipe recipe = recipeCommandToRecipe.convert(recipeCommand);
-	  Recipe savedRecipe = recipeRepository.save(recipe);
-	  return recipeToRecipeCommand.convert(savedRecipe);
-	}
+  @Override
+  public Recipe finById(Long id) {
+    Optional<Recipe> recipe = recipeRepository.findById(id);
+    return recipe.orElseThrow(() -> new RuntimeException("Recipe not found!"));
+  }
+
+  @Override
+  public RecipeCommand saveRecipe(RecipeCommand recipeCommand) {
+    Recipe recipe = recipeCommandToRecipe.convert(recipeCommand);
+    Recipe savedRecipe = recipeRepository.save(recipe);
+    return recipeToRecipeCommand.convert(savedRecipe);
+  }
 }
