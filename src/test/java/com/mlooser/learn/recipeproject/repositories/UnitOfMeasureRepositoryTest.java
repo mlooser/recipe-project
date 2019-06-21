@@ -22,9 +22,9 @@ public class UnitOfMeasureRepositoryTest {
 	
 	@Test
 	@DirtiesContext
-	public void findByName() {
+	public void findByDescription() {
 		
-		Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByName("Teaspoon");	
+		Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Teaspoon");	
 		unitOfMeasureRepository.deleteAll();
 		assertEquals("Teaspoon", uomOptional.get().getDescription());
 	}
@@ -32,7 +32,7 @@ public class UnitOfMeasureRepositoryTest {
 	@Test
 	public void findByNameCup() {
 		
-		Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByName("Cup");		
+		Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Cup");		
 		assertEquals("Cup", uomOptional.get().getDescription());
 	}
 }

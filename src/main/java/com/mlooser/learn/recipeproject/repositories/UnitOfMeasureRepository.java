@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 import com.mlooser.learn.recipeproject.model.UnitOfMeasure;
 
 public interface UnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, Long>{
-	Optional<UnitOfMeasure> findByName(String name);
+	Optional<UnitOfMeasure> findByDescription(String name);
 }
