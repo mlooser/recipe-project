@@ -19,7 +19,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode(exclude= {"notes","ingredients","categories"}, callSuper = false)
+@EqualsAndHashCode(exclude= {"notes","ingredients","categories"}, callSuper = true)
 @NoArgsConstructor
 @Entity
 public class Recipe extends BaseEntity {

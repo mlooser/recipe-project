@@ -10,10 +10,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(exclude= {"recipes"})
+@EqualsAndHashCode(exclude= {"recipes"}, callSuper = true)
 @Entity
 public class Category extends BaseEntity{
-	private String name;
+	private String description;
 	
 	@ManyToMany(mappedBy="categories")
 	private Set<Recipe> recipes;	

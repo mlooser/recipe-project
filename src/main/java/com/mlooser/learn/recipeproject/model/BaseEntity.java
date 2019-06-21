@@ -6,9 +6,11 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @MappedSuperclass
 @Data
+@EqualsAndHashCode
 public class BaseEntity {
 	
 	@Id

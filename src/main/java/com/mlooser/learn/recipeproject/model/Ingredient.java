@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(exclude= {"uom","recipe"})
+@EqualsAndHashCode(exclude= {"uom","recipe"}, callSuper = true)
 @Entity
 public class Ingredient extends BaseEntity{
 	private String description;

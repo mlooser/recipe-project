@@ -25,7 +25,7 @@ public class CategoryTest {
 	@Test
 	public void getName() {
 		String nameValue = "test_cat";
-		category.setName(nameValue);
-		assertEquals(nameValue, category.getName());
+		category.setDescription(nameValue);
+		assertEquals(nameValue, category.getDescription());
 	}	
 }
