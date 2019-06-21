@@ -14,6 +14,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
+import com.mlooser.learn.recipeproject.converters.RecipeCommandToRecipe;
+import com.mlooser.learn.recipeproject.converters.RecipeToRecipeCommand;
 import com.mlooser.learn.recipeproject.model.Recipe;
 import com.mlooser.learn.recipeproject.repositories.RecipeRepository;
 
@@ -24,10 +26,18 @@ public class RecipeServiceImplTest {
 	@Mock
 	private RecipeRepository recipeRepository;
 
+	@Mock
+  private RecipeCommandToRecipe recipeCommandToRecipe;
+	
+	@Mock
+  private RecipeToRecipeCommand recipeToRecipeCommand;
+	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		reciperService = new RecipeServiceImpl(recipeRepository);
+		reciperService = new RecipeServiceImpl(recipeRepository, 
+		    recipeCommandToRecipe, 
+		    recipeToRecipeCommand);
 	}
 
 	@Test
