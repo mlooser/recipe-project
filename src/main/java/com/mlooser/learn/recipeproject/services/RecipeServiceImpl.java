@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mlooser.learn.recipeproject.commands.RecipeCommand;
 import com.mlooser.learn.recipeproject.converters.RecipeCommandToRecipe;
@@ -22,10 +23,10 @@ public class RecipeServiceImpl implements RecipeService {
   private RecipeToRecipeCommand recipeToRecipeCommand;
 
   public RecipeServiceImpl(RecipeRepository recipeRepository,
-      RecipeCommandToRecipe recipeCommandToRecipe, 
+      RecipeCommandToRecipe recipeCommandToRecipe,
       RecipeToRecipeCommand recipeToRecipeCommand) {
     super();
-    
+
     this.recipeRepository = recipeRepository;
     this.recipeCommandToRecipe = recipeCommandToRecipe;
     this.recipeToRecipeCommand = recipeToRecipeCommand;
@@ -39,7 +40,7 @@ public class RecipeServiceImpl implements RecipeService {
   }
 
   @Override
-  public Recipe finById(Long id) {
+  public Recipe findById(Long id) {
     Optional<Recipe> recipe = recipeRepository.findById(id);
     return recipe.orElseThrow(() -> new RuntimeException("Recipe not found!"));
   }
@@ -49,5 +50,11 @@ public class RecipeServiceImpl implements RecipeService {
     Recipe recipe = recipeCommandToRecipe.convert(recipeCommand);
     Recipe savedRecipe = recipeRepository.save(recipe);
     return recipeToRecipeCommand.convert(savedRecipe);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public RecipeCommand findCommandById(Long id) {
+    return recipeToRecipeCommand.convert(findById(id));
   }
 }

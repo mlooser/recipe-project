@@ -34,7 +34,7 @@
                                 <ul>
                                     <li th:remove="all">cat one</li>
                                     <li th:remove="all">cat two</li>
-                                    <li th:each="category : ${recipe.categories}" th:text="${category.getDescirption()}">cat three</li>
+                                    <li th:each="category : ${recipe.categories}" th:text="${category.description}">cat three</li>
                                 </ul>
                             </div>
                         </div>

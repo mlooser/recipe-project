@@ -63,7 +63,7 @@ public class RecipeServiceImplTest {
 				.when(recipeRepository.findById(recipe.getId()))
 				.thenReturn(recipeOptional);
 
-		Recipe retRecipe = reciperService.finById(recipe.getId());
+		Recipe retRecipe = reciperService.findById(recipe.getId());
 		assertNotNull(retRecipe);
 	}
 }

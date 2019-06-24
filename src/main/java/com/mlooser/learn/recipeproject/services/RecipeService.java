@@ -7,6 +7,7 @@ import com.mlooser.learn.recipeproject.model.Recipe;
 
 public interface RecipeService {
 	Set<Recipe> getAllRecipes();
-	Recipe finById(Long id);	
+	Recipe findById(Long id);	
 	RecipeCommand saveRecipe(RecipeCommand recipeCommand);
+	RecipeCommand findCommandById(Long id);
 }
