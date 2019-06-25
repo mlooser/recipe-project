@@ -21,49 +21,55 @@ import com.mlooser.learn.recipeproject.repositories.RecipeRepository;
 
 public class RecipeServiceImplTest {
 
-	private RecipeServiceImpl reciperService;
+  private RecipeServiceImpl reciperService;
 
-	@Mock
-	private RecipeRepository recipeRepository;
+  @Mock
+  private RecipeRepository recipeRepository;
 
-	@Mock
+  @Mock
   private RecipeCommandToRecipe recipeCommandToRecipe;
-	
-	@Mock
+
+  @Mock
   private RecipeToRecipeCommand recipeToRecipeCommand;
-	
-	@Before
-	public void setUp() {
-		MockitoAnnotations.initMocks(this);
-		reciperService = new RecipeServiceImpl(recipeRepository, 
-		    recipeCommandToRecipe, 
-		    recipeToRecipeCommand);
-	}
 
-	@Test
-	public void getRecipes() {
-		Set<Recipe> recipesData = new HashSet<>();
-		recipesData.add(new Recipe());
+  @Before
+  public void setUp() {
+    MockitoAnnotations.initMocks(this);
+    reciperService = new RecipeServiceImpl(recipeRepository,
+        recipeCommandToRecipe,
+        recipeToRecipeCommand);
+  }
 
-		when(recipeRepository.findAll()).thenReturn(recipesData);
+  @Test
+  public void getRecipes() {
+    Set<Recipe> recipesData = new HashSet<>();
+    recipesData.add(new Recipe());
 
-		Set<Recipe> recipes = reciperService.getAllRecipes();
-		assertEquals(1, recipes.size());
-		verify(recipeRepository, times(1)).findAll();
-	}
+    when(recipeRepository.findAll()).thenReturn(recipesData);
 
-	@Test
-	public void getRecipeById() {
-		Recipe recipe = new Recipe();
-		recipe.setId(1l);
+    Set<Recipe> recipes = reciperService.getAllRecipes();
+    assertEquals(1, recipes.size());
+    verify(recipeRepository, times(1)).findAll();
+  }
 
-		Optional<Recipe> recipeOptional = Optional.of(recipe);
+  @Test
+  public void getRecipeById() {
+    Recipe recipe = new Recipe();
+    recipe.setId(1l);
 
-		Mockito
-				.when(recipeRepository.findById(recipe.getId()))
-				.thenReturn(recipeOptional);
+    Optional<Recipe> recipeOptional = Optional.of(recipe);
 
-		Recipe retRecipe = reciperService.findById(recipe.getId());
-		assertNotNull(retRecipe);
-	}
+    Mockito
+        .when(recipeRepository.findById(recipe.getId()))
+        .thenReturn(recipeOptional);
+
+    Recipe retRecipe = reciperService.findById(recipe.getId());
+    assertNotNull(retRecipe);
+  }
+
+  @Test
+  public void deleteById() {
+    reciperService.deleteById(1l);
+    verify(recipeRepository, times(1)).deleteById(anyLong());
+  }
 }

@@ -4,7 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-
+import static org.mockito.Mockito.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -22,32 +22,42 @@ import com.mlooser.learn.recipeproject.services.RecipeService;
 
 public class RecipeControllerTest {
 
-	@Mock
-	private RecipeService recipeService;
+  @Mock
+  private RecipeService recipeService;
 
-	private RecipeController recipeController;
+  private RecipeController recipeController;
 
-	@Before
-	public void before() {
-		MockitoAnnotations.initMocks(this);
-		recipeController = new RecipeController(recipeService);
-	}
+  private MockMvc mockMvc;
 
-	@Test
-	public void showRecipeTest() throws Exception {
+  @Before
+  public void before() {
+    MockitoAnnotations.initMocks(this);
+    recipeController = new RecipeController(recipeService);
+    mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+  }
 
-		Recipe recipe = new Recipe();
-		recipe.setId(1l);
+  @Test
+  public void showRecipeTest() throws Exception {
 
-		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+    Recipe recipe = new Recipe();
+    recipe.setId(1l);
 
-		Mockito.when(recipeService.findById(1l)).thenReturn(recipe);
+    Mockito.when(recipeService.findById(1l)).thenReturn(recipe);
 
-		mockMvc
-				.perform(get("/recipe/1/show"))
-				.andExpect(status().isOk())
-				.andExpect(view().name("recipe/show"))
-				.andExpect(model().attributeExists("recipe"));
+    mockMvc
+        .perform(get("/recipe/1/show"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("recipe/show"))
+        .andExpect(model().attributeExists("recipe"));
 
-	}
+  }
+
+  @Test
+  public void deleteActionTest() throws Exception {
+    mockMvc.perform(get("/recipe/1/delete"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/"));
+
+    verify(recipeService, times(1)).deleteById(anyLong());
+  }
 }
