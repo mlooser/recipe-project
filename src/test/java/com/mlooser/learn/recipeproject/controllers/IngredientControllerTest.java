@@ -17,6 +17,7 @@ import com.mlooser.learn.recipeproject.commands.IngredientCommand;
 import com.mlooser.learn.recipeproject.commands.RecipeCommand;
 import com.mlooser.learn.recipeproject.services.IngredientService;
 import com.mlooser.learn.recipeproject.services.RecipeService;
+import com.mlooser.learn.recipeproject.services.UnitOfMeasureService;
 
 public class IngredientControllerTest {
 
@@ -26,13 +27,20 @@ public class IngredientControllerTest {
   @Mock
   private IngredientService ingredientService;
 
+  @Mock
+  private UnitOfMeasureService unitOfMeasureService;
+  
   private IngredientController ingredientController;
   private MockMvc mockMvc;
 
   @Before
   public void before() {
     MockitoAnnotations.initMocks(this);
-    ingredientController = new IngredientController(recipeService, ingredientService);
+    ingredientController = new IngredientController(
+        recipeService, 
+        ingredientService, 
+        unitOfMeasureService);
+    
     mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
   }
 
